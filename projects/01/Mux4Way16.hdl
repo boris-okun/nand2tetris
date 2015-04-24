@@ -16,5 +16,16 @@ CHIP Mux4Way16 {
     OUT out[16];
 
     PARTS:
-    // Put your code here:
+    DMux4Way (in = true, sel = sel, a = A, b = B, c = C, d = D);
+    Mux16    (a = false, b = true, sel = A, out = MuxA);
+    Mux16    (a = false, b = true, sel = B, out = MuxB);
+    Mux16    (a = false, b = true, sel = C, out = MuxC);
+    Mux16    (a = false, b = true, sel = D, out = MuxD);
+    And16    (a = a, b = MuxA, out = AndA);
+    And16    (a = b, b = MuxB, out = AndB);
+    And16    (a = c, b = MuxC, out = AndC);
+    And16    (a = d, b = MuxD, out = AndD);
+    Or16     (a = AndA, b = AndB, out = OrAB);
+    Or16     (a = AndC, b = AndD, out = OrCD);
+    Or16     (a = OrAB, b = OrCD, out = out);
 }

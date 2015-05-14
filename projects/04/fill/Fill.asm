@@ -9,3 +9,82 @@
 // program clears the screen, i.e. writes "white" in every pixel.
 
 // Put your code here.
+
+
+@8192
+D=A
+
+@screensize
+M=D
+
+@count
+M=0
+
+@state
+M=0
+
+(KEABORDLOOP)
+    @KBD
+    D=M
+    
+    @state
+    D=D-M
+
+    @KEABORDLOOP
+    D;JEQ
+
+    @state
+    M=M+D
+    D=M
+
+    @BLACKSCREENLOOP
+    D;JGT
+
+    @WHITESCREENLOOP
+    0;JMP
+
+(BLACKSCREENLOOP)
+    @SCREEN
+    D=A
+
+    @count
+    A=D+M
+    M=-1
+
+    @count
+    MD=M+1
+
+    @screensize
+    D=M-D
+
+    @BLACKSCREENLOOP
+    D;JGT
+
+    @count
+    M=0
+
+    @KEABORDLOOP
+    0;JMP
+
+(WHITESCREENLOOP)
+    @SCREEN
+    D=A
+
+    @count
+    A=D+M
+    M=0
+
+    @count
+    MD=M+1
+
+    @screensize
+    D=M-D
+
+    @WHITESCREENLOOP
+    D;JGT
+
+    @count
+    M=0
+
+    @KEABORDLOOP
+    0;JMP
